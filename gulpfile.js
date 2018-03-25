@@ -326,14 +326,14 @@ gulp.task('watch:dev', function() {
 });
 
 gulp.task('watch-compile:dev', function() {
-	gulp.watch(paths.typescriptSrc, ['dev:tslint', 'dev:compile:typescript']);
+	gulp.watch(paths.typescriptSrc, ['dev:compile:typescript']);
 	gulp.watch(paths.sassSrc, ['dev:compile:sass']);
 	gulp.watch(paths.pugSrc, ['dev:compile:pug']);
 	gulp.watch(paths.dev.serverFileWatchers.watchCompile, ['reload:dev']);
 });
 
 gulp.task('watch-compile:dev:separate-dev', function() {
-	gulp.watch(paths.typescriptSrc, ['dev:tslint', 'dev:compile:typescript']);
+	gulp.watch(paths.typescriptSrc, ['dev:compile:typescript']);
 	gulp.watch(paths.sassSrc, ['dev:compile:sass']);
 	gulp.watch(paths.pugSrc, ['dev:compile:pug']);
 	gulp.watch(paths.dev.serverFileWatchers.watchCompile, ['dev:copy:static:separate']);
@@ -343,15 +343,15 @@ gulp.task('watch-compile:dev:separate-dev', function() {
  * Main tasks
  */
 gulp.task('build:dev', function(done) {
-	runSequence('dev:tslint', 'dev:clean', 'dev:compile:sass', 'dev:compile:pug', 'dev:copy:vendor-js', 'dev:compile:typescript', done);
+	runSequence('dev:clean', 'dev:compile:sass', 'dev:compile:pug', 'dev:copy:vendor-js', 'dev:compile:typescript', done);
 });
 
 gulp.task('build:dev:separate', function(done) {
-	runSequence('dev:tslint', 'dev:clean', 'dev:clean:separate', 'dev:compile:sass', 'dev:copy:vendor-js', 'dev:copy:static:separate', 'dev:compile:typescript', done);
+	runSequence('dev:clean', 'dev:clean:separate', 'dev:compile:sass', 'dev:copy:vendor-js', 'dev:copy:static:separate', 'dev:compile:typescript', done);
 });
 
 gulp.task('build:prod', function(done) {
-	runSequence('dev:tslint', 'prod:clean', 'dev:compile:sass', 'prod:compile:sass', 'dev:compile:pug', 'dev:compile:typescript', 'prod:compile:aot', 'prod:bundle:js', 'prod:bundle:vendor-css', 'prod:preprocess:html', 'prod:copy:static', 'prod:clean:post', done);
+	runSequence('prod:clean', 'dev:compile:sass', 'prod:compile:sass', 'dev:compile:pug', 'dev:compile:typescript', 'prod:compile:aot', 'prod:bundle:js', 'prod:bundle:vendor-css', 'prod:preprocess:html', 'prod:copy:static', 'prod:clean:post', done);
 });
 
 gulp.task('start:dev', function(done) {
